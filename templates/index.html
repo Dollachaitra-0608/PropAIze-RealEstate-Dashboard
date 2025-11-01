@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PropAIze - AI-Powered Real Estate Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+  .navbar {
+    background: linear-gradient(90deg, #0a192f, #1e3a8a, #3b82f6);
+    color: white;
+    padding: 1rem 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  /* Optional: add a hover glow effect to logo text */
+  .logo-text {
+    color: white;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+
+  /* Ensure background fills full width */
+  body, html {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+  <div class="container">
+    <div class="nav-content">
+      <!-- Updated professional PropAIze logo -->
+      <div class="logo-wrapper">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="PropAIze Logo" class="logo-img">
+        <h1 class="logo-text">PropAIze</h1>
+      </div>
+      <p class="nav-subtitle">AI-Powered Real Estate Intelligence</p>
+    </div>
+  </div>
+</nav>
+
+
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Summary Cards Section -->
+        <section class="summary-section">
+            <h2 class="section-title">Market Overview</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3 class="card-label">Total Listings</h3>
+                    <p class="card-value" id="totalListings">-</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-label">Average Price</h3>
+                    <p class="card-value" id="avgPrice">-</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-label">Min Price</h3>
+                    <p class="card-value" id="minPrice">-</p>
+                </div>
+                <div class="card">
+                    <h3 class="card-label">Max Price</h3>
+                    <p class="card-value" id="maxPrice">-</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Charts Section -->
+        <section class="charts-section">
+            <div class="charts-grid">
+                <!-- Line Chart for Price Trends -->
+                <div class="chart-container">
+                    <h3 class="chart-title">Price Trends by Area</h3>
+                    <canvas id="priceChart"></canvas>
+                </div>
+
+                <!-- Pie Chart for City Distribution -->
+                <div class="chart-container">
+                    <h3 class="chart-title">Listings by City</h3>
+                    <canvas id="cityChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Prediction Form Section -->
+        <section class="prediction-section">
+            <h2 class="section-title">Price Prediction</h2>
+            <div class="prediction-card">
+                <form id="predictionForm" class="form">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="area" class="form-label">Area (sqft)</label>
+                            <input type="number" id="area" name="area" min="100" max="10000" placeholder="e.g., 2500" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bedrooms" class="form-label">Bedrooms</label>
+                            <select id="bedrooms" name="bedrooms" required>
+                                <option value="">Select</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5+</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="bathrooms" class="form-label">Bathrooms</label>
+                            <select id="bathrooms" name="bathrooms" required>
+                                <option value="">Select</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="city" class="form-label">City</label>
+                            <select id="city" name="city" required>
+                                <option value="">Select</option>
+                                <option value="New York">New York</option>
+                                <option value="Los Angeles">Los Angeles</option>
+                                <option value="Chicago">Chicago</option>
+                                <option value="Houston">Houston</option>
+                                <option value="Phoenix">Phoenix</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="property_type" class="form-label">Property Type</label>
+                            <select id="property_type" name="property_type" required>
+                                <option value="">Select</option>
+                                <option value="House">House</option>
+                                <option value="Apartment">Apartment</option>
+                                <option value="Condo">Condo</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Predict Price</button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- Prediction Result -->
+                <div id="resultContainer" class="result-container hidden">
+                    <h3 class="result-title">Predicted Price</h3>
+                    <p class="result-value" id="predictedPrice">-</p>
+                    <div class="result-details" id="resultDetails"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Real Estate Dashboard.</p>
+    </footer>
+
+    <!-- Script -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
