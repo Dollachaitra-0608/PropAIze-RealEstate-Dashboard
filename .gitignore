@@ -1,36 +1,31 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# --- Node / Next.js ---
+node_modules/
+.next/
+out/
+build/
+dist/
 
-# dependencies
-/node_modules
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
-
-# debug
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.pnpm-debug.log*
-
-# env files
-.env*
-
+# --- Python / Flask ---
 __pycache__/
-.env
 *.pyc
 *.pyo
 *.pyd
 instance/
-.env/
 *.db
+.env
+venv/
+.env/
+*.log
 
-# typescript
+# --- OS / Editor Files ---
+.DS_Store
+Thumbs.db
+*.swp
+
+# --- Configs ---
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
 *.tsbuildinfo
 next-env.d.ts
-
-# Python virtual environment
-venv/
