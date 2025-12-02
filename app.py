@@ -8,7 +8,7 @@ import os
 app = Flask(__name__)
 
 # Load trained model and encoders
-print("[v0] Loading ML model...")
+print("[Loading ML model...")
 with open('model.pkl', 'rb') as f:
     model_data = pickle.load(f)
     model = model_data['model']
@@ -17,7 +17,7 @@ with open('model.pkl', 'rb') as f:
 
 # Load dataset for analytics
 df = pd.read_csv('data.csv')
-print("[v0] ML model loaded successfully")
+print("ML model loaded successfully")
 
 # Route to serve the dashboard
 @app.route('/')
@@ -66,7 +66,7 @@ def get_analytics():
         }
         return jsonify(response)
     except Exception as e:
-        print(f"[v0] Error in analytics: {str(e)}")
+        print(f"Error in analytics: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
 # Route for price prediction
@@ -100,7 +100,7 @@ def predict_price():
         # Round to 2 decimal places
         predicted_price = round(predicted_price, 2)
         
-        print(f"[v0] Prediction made: Area={area}, BR={bedrooms}, BA={bathrooms}, City={city}, Type={property_type} -> Price=${predicted_price}")
+        print(f"Prediction made: Area={area}, BR={bedrooms}, BA={bathrooms}, City={city}, Type={property_type} -> Price=${predicted_price}")
         
         return jsonify({
             'predicted_price': predicted_price,
@@ -113,10 +113,10 @@ def predict_price():
             }
         })
     except ValueError as e:
-        print(f"[v0] Validation error: {str(e)}")
+        print(f"Validation error: {str(e)}")
         return jsonify({'error': f'Invalid input: {str(e)}'}), 400
     except Exception as e:
-        print(f"[v0] Prediction error: {str(e)}")
+        print(f"Prediction error: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
 # Error handling
@@ -129,6 +129,6 @@ def internal_error(error):
     return jsonify({'error': 'Internal server error'}), 500
 
 if __name__ == '__main__':
-    print("[v0] Starting Flask server...")
+    print("Starting Flask server...")
     # Use debug=True for development, debug=False for production
     app.run(debug=True, host='0.0.0.0', port=5000)
